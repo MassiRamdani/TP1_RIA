@@ -27,21 +27,44 @@ function get_all_value()
 
 function del_value($value)
 {
-   
-    if (!empty(get_value($value))) {
 
-        require_once "dbConnect.php";
-        $sql = "DELETE FROM produits where nom=:nom";
+    require_once "dbConnect.php";
+    try
+    { $sql = "DELETE FROM produits where nom=:nom";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':nom',  $value, PDO::PARAM_INT);  
+        $stmt->bindParam(':nom', $value, PDO::PARAM_STR);
         $stmt->execute();
         return true;
-    } else {
+    } catch (Exception $e) {
         return false;
     }
 
 }
-function insert_value($value)
+function insert_value($nom, $date_up, $description, $prix)
 {
+    require_once "dbConnect.php";
+    try {
+        $date = date("Y-m-d H:i:s"); 
+        $sql = "INSERT INTO produits(nom,date_in,date_up,description,prix ) VALUES (
+            :nom,
+            :date_in,
+            :date_up,
+            :description,
+            :prix)";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':date_in', $date , PDO::PARAM_STR);
+        $stmt->bindParam(':date_up', $date_up, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $stmt->bindParam(':prix', $prix, PDO::PARAM_STR);
+       
+        $stmt->execute() ;
+        return true;
+    } catch (Exception $e) {
+     
+        return false;
+    }
 }
+
 $conn = null;

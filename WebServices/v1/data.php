@@ -17,4 +17,8 @@ function delete_product($name)
     return  del_value($name);
       
 }
- 
+function insertProduct($nom ,$date_up,$description,$prix)
+{
+    return  insert_value($nom,$date_up,$description,$prix);
+      
+}
