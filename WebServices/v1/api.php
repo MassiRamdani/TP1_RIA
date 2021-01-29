@@ -15,6 +15,7 @@ if ($method == "GET") {
             }
         } else {
             $product = get_price($_GET['name']);
+            
             if (empty($product)) {
                 response(200, "Product Not Found", null);
             } else {

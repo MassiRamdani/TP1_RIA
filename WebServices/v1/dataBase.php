@@ -3,10 +3,10 @@
 function get_value($value)
 {
     require_once "dbConnect.php";
-    $sql = "SELECT * FROM produits where nom=:nom";
+    $sql = "SELECT * FROM produits where nom LIKE  :nom";
     $stmt = $conn->prepare($sql);
-
-    $stmt->execute(['nom' => $value]);
+    $stmt->bindValue(':nom', "%$value%"  ,PDO::PARAM_STR);
+    $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $result = $stmt->fetch();
     return $result;
@@ -44,7 +44,7 @@ function insert_value($nom, $date_up, $description, $prix)
 {
     require_once "dbConnect.php";
     try {
-        $date = date("Y-m-d H:i:s"); 
+        $date = date("Y-m-d H:i:s");
         $sql = "INSERT INTO produits(nom,date_in,date_up,description,prix ) VALUES (
             :nom,
             :date_in,
@@ -54,15 +54,15 @@ function insert_value($nom, $date_up, $description, $prix)
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
-        $stmt->bindParam(':date_in', $date , PDO::PARAM_STR);
+        $stmt->bindParam(':date_in', $date, PDO::PARAM_STR);
         $stmt->bindParam(':date_up', $date_up, PDO::PARAM_STR);
         $stmt->bindParam(':description', $description, PDO::PARAM_STR);
         $stmt->bindParam(':prix', $prix, PDO::PARAM_STR);
-       
-        $stmt->execute() ;
+
+        $stmt->execute();
         return true;
     } catch (Exception $e) {
-     
+
         return false;
     }
 }
