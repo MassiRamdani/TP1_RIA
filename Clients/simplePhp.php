@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Rest API Client Side Demo</title>
+    <title>simplePhp</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
@@ -11,7 +11,7 @@
 </head> 
 <body>
     <div class="container">
-    <h2>Rest API Client Side Demo</h2> 
+    <h2>Simple PHP</h2> 
     <form class="form-inline" action="index.php" method="POST"> 
         <div class="form-group">
                 <label for="name">Name</label>
